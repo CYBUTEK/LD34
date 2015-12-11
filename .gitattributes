@@ -1,0 +1,7 @@
+# .gitattributes 11/12/2015
+
+# Normalise line endings.
+* text=auto
+
+# Allow language specific diffs.
+*.cs diff=csharp
