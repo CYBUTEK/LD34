@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class AppleSpawner : MonoBehaviour
 {
+    private static readonly List<Apple> apples = new List<Apple>();
+
     [SerializeField]
     private GameObject applePrefab = null;
 
@@ -14,6 +16,24 @@ public class AppleSpawner : MonoBehaviour
     private Transform maxPositionTransform = null;
 
     private List<SpawnNode> spawnNodes;
+
+    public static List<Apple> Apples
+    {
+        get
+        {
+            return apples;
+        }
+    }
+
+    public void StartSpawner()
+    {
+        StartCoroutine(Spawner());
+    }
+
+    public void StopSpawner()
+    {
+        StopAllCoroutines();
+    }
 
     protected virtual void OnDrawGizmos()
     {
@@ -29,11 +49,10 @@ public class AppleSpawner : MonoBehaviour
         }
     }
 
+
     protected virtual void Start()
     {
         spawnNodes = GetSpawnNodes(10, 10, minPositionTransform.position, maxPositionTransform.position);
-
-        StartCoroutine(Spawner());
     }
 
     private SpawnNode GetRandomNode()

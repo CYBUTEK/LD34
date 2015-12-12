@@ -13,6 +13,7 @@ public class ApplePicked : MonoBehaviour
     {
         if (apple != null)
         {
+            apple.IsPicked = true;
             GameController.Instance.Points += apple.GetPoints();
             Destroy(transform.root.gameObject);
         }

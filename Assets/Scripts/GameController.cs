@@ -4,14 +4,22 @@ using UnityEngine.UI;
 public class GameController : SingletonBehaviour<GameController>
 {
     [SerializeField]
+    private AppleSpawner appleSpawner = null;
+
+    [SerializeField]
     private Text pointsText = null;
 
     [SerializeField]
-    private Text livesText = null;
+    private Text dropsAllowedText = null;
+
+    [SerializeField]
+    private GameObject menuObject = null;
 
     private int lives;
 
     private int points;
+
+    public static bool IsPlaying { get; private set; }
 
     public int Lives
     {
@@ -21,7 +29,7 @@ public class GameController : SingletonBehaviour<GameController>
         }
         set
         {
-            if (value < 0)
+            if (value <= 0 && IsPlaying)
             {
                 lives = 0;
                 OnGameOver();
@@ -31,9 +39,9 @@ public class GameController : SingletonBehaviour<GameController>
                 lives = value;
             }
 
-            if (livesText != null)
+            if (dropsAllowedText != null)
             {
-                livesText.text = "LIVES: " + lives;
+                dropsAllowedText.text = "DROPS ALLOWED: " + lives;
             }
         }
     }
@@ -46,15 +54,7 @@ public class GameController : SingletonBehaviour<GameController>
         }
         set
         {
-            if (value < 0)
-            {
-                points = 0;
-                OnGameOver();
-            }
-            else
-            {
-                points = value;
-            }
+            points = value;
 
             if (pointsText != null)
             {
@@ -63,16 +63,58 @@ public class GameController : SingletonBehaviour<GameController>
         }
     }
 
-    public void OnGameOver() { }
+    public void OnGameOver()
+    {
+        IsPlaying = false;
+
+        if (appleSpawner != null)
+        {
+            appleSpawner.StopSpawner();
+        }
+
+        DestroyAllApples();
+
+        ShowMenu(true);
+    }
+
+    public void ShowMenu(bool state)
+    {
+        if (menuObject != null)
+        {
+            menuObject.SetActive(state);
+        }
+    }
 
     public void StartGame()
     {
         Lives = 3;
         Points = 0;
+
+        if (appleSpawner != null)
+        {
+            appleSpawner.StartSpawner();
+        }
+
+        IsPlaying = true;
+        ShowMenu(false);
     }
 
     protected virtual void Start()
     {
-        StartGame();
+        ShowMenu(true);
+    }
+
+    private void DestroyAllApples()
+    {
+        for (int i = 0; i < AppleSpawner.Apples.Count; ++i)
+        {
+            Apple apple = AppleSpawner.Apples[i];
+
+            if (apple != null)
+            {
+                apple.SpawnNode.IsOccupied = false;
+                Destroy(apple.gameObject);
+            }
+        }
     }
 }

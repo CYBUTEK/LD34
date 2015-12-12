@@ -16,6 +16,8 @@ public class Apple : MonoBehaviour
     private new Rigidbody2D rigidbody2D;
     private float timeTillRipeSeconds = 2.5f;
 
+    public bool IsPicked { get; set; }
+
     public SpawnNode SpawnNode { get; set; }
 
     public int GetPoints()
@@ -31,16 +33,22 @@ public class Apple : MonoBehaviour
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
 
+        transform.eulerAngles = new Vector3(0.0f, 0.0f, Random.Range(-30.0f, 30.0f));
+
         originalScale = transform.localScale;
 
         timeTillRipeSeconds = Random.Range(2.0f, 5.0f);
 
         SetColour(0.0f);
         SetScale(0.0f);
+
+        AppleSpawner.Apples.Add(this);
     }
 
     protected virtual void OnDestroy()
     {
+        AppleSpawner.Apples.Remove(this);
+
         if (SpawnNode != null)
         {
             SpawnNode.IsOccupied = false;
