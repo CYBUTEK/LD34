@@ -1,59 +1,9 @@
-THEME SUGGESTIONS
-=================
+THEME: Growing, Two button controls
 
-One use only
-	- Gun with one bullet but it pierces through multiple enemies.
-	
-Break It
-	- People who live in a glass houses shouldn't throw stones.
-	
-Lose abilities as you progress
-	- Something where you age (turn into an old man).
-	
-Control the environment
-	- Play as a cloud.
-	
-Growing
-	- Play as a plant, and need to get from A to B by spreading seeds.
-	
-One massive enemy
+Apple tree clicker.
 
-Generations
-
-Death is not the end
-	- Zombie
-	- Win condition is death.
-
-You are many
-	- Play as a swarm of bees or ants.
-
-Only 3 rules
-
-Stick Together
-	- Play as a piece of blutac.
+Primary Functionality
+=====================
 	
-Strength in numbers
-	- Play as bees or ants.
-	
-Isolation
-
-Two button controls
-
-Colony
-	- Ants
-	
-Four Elements
-	- Earth, Wind, Fire and Water.
-	
-Unexplored
-	- Bottom of the sea.
-	
-Build your weapon
-	- Physics based thing.
-	
-Nonviolent combat
-	- Pillow Kombat
-	- Attach balloons to enemies so they float away.
-
-Journey into the unknown
-	- Bottom of the sea.
+Secondary Functionality
+=======================
