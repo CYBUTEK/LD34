@@ -168,6 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a6de7ee536be044b932c79155ddae22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  thudClip: {fileID: 8300000, guid: 5e45637c7bdced54bb498de9cc24ef0b, type: 3}
 --- !u!114 &11476586
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -260,6 +261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 404daa16aa1c03b43993f06913c34d0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  popClip: {fileID: 8300000, guid: cf7daa7ceb5107c489d6b3a0e96fbb83, type: 3}
 --- !u!212 &21229122
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -435,6 +437,47 @@ Prefab:
       propertyPath: ripenessCurve.m_Curve.Array.data[4].tangentMode
       value: 21
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: panLevelCustomCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: spreadCustomCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: reverbZoneMixCustomCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24304762, guid: 262cf90d63f22704592cd2c773b26109,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: cf7daa7ceb5107c489d6b3a0e96fbb83, type: 3}
+    - target: {fileID: 0}
+      propertyPath: popClip
+      value: 
+      objectReference: {fileID: 8300000, guid: cf7daa7ceb5107c489d6b3a0e96fbb83, type: 3}
+    - target: {fileID: 0}
+      propertyPath: thudClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5e45637c7bdced54bb498de9cc24ef0b, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 141482}

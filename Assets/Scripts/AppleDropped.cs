@@ -2,6 +2,9 @@
 
 public class AppleDropped : MonoBehaviour
 {
+    [SerializeField]
+    private AudioClip thudClip = null;
+
     private Apple apple;
 
     protected virtual void Awake()
@@ -14,6 +17,7 @@ public class AppleDropped : MonoBehaviour
         if (apple != null && apple.IsPicked == false && GameController.IsPlaying)
         {
             GameController.Instance.Lives -= 1;
+            AudioManager.PlayClip("effects", thudClip, Random.Range(0.8f, 1.2f));
             Destroy(transform.root.gameObject);
         }
     }

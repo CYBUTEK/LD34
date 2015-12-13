@@ -15,6 +15,11 @@ public class AppleSpawner : MonoBehaviour
     [SerializeField]
     private Transform maxPositionTransform = null;
 
+    [SerializeField]
+    private AnimationCurve difficultyDelay;
+
+    private float elapsedTime;
+
     private List<SpawnNode> spawnNodes;
 
     public static List<Apple> Apples
@@ -49,10 +54,17 @@ public class AppleSpawner : MonoBehaviour
         }
     }
 
-
     protected virtual void Start()
     {
         spawnNodes = GetSpawnNodes(10, 10, minPositionTransform.position, maxPositionTransform.position);
+    }
+
+    protected virtual void Update()
+    {
+        if (GameController.IsPlaying)
+        {
+            elapsedTime = elapsedTime + Time.deltaTime;
+        }
     }
 
     private SpawnNode GetRandomNode()
@@ -120,10 +132,12 @@ public class AppleSpawner : MonoBehaviour
 
     private IEnumerator Spawner()
     {
+        elapsedTime = 0.0f;
+
         while (true)
         {
             SpawnApple();
-            yield return new WaitForSeconds(Random.Range(0.5f, 1.5f));
+            yield return new WaitForSeconds(difficultyDelay.Evaluate(elapsedTime));
         }
     }
 }

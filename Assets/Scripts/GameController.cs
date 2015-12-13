@@ -13,13 +13,38 @@ public class GameController : SingletonBehaviour<GameController>
     private Text dropsAllowedText = null;
 
     [SerializeField]
+    private Text highScoreText = null;
+
+    [SerializeField]
     private GameObject menuObject = null;
+
+    private int highScore;
 
     private int lives;
 
     private int points;
 
     public static bool IsPlaying { get; private set; }
+
+    public int HighScore
+    {
+        get
+        {
+            return highScore;
+        }
+        set
+        {
+            if (highScore < value)
+            {
+                highScore = value;
+
+                if (highScoreText != null)
+                {
+                    highScoreText.text = "HIGH SCORE\n" + highScore;
+                }
+            }
+        }
+    }
 
     public int Lives
     {
@@ -73,6 +98,8 @@ public class GameController : SingletonBehaviour<GameController>
         }
 
         DestroyAllApples();
+
+        HighScore = points;
 
         ShowMenu(true);
     }
