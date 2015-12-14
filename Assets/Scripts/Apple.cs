@@ -2,6 +2,8 @@
 
 public class Apple : MonoBehaviour
 {
+    private const float RANDOM_WORM_PERCENTAGE = 0.1f;
+
     [SerializeField]
     private SpriteRenderer bodyRenderer = null;
 
@@ -11,14 +13,32 @@ public class Apple : MonoBehaviour
     [SerializeField]
     private AnimationCurve ripenessCurve = null;
 
+    [SerializeField]
+    private GameObject wormObject = null;
+
     private float elapsedTime;
     private Vector3 originalScale;
-    private new Rigidbody2D rigidbody2D;
     private float timeTillRipeSeconds = 2.5f;
+
+    public bool IsDropped { get; set; }
 
     public bool IsPicked { get; set; }
 
+    public Rigidbody2D Rigidbody2D { get; set; }
+
     public SpawnNode SpawnNode { get; set; }
+
+    public bool HasWorm
+    {
+        get
+        {
+            if (wormObject != null)
+            {
+                return wormObject.activeSelf;
+            }
+            return false;
+        }
+    }
 
     public int GetPoints()
     {
@@ -31,7 +51,7 @@ public class Apple : MonoBehaviour
 
     protected virtual void Awake()
     {
-        rigidbody2D = GetComponent<Rigidbody2D>();
+        Rigidbody2D = GetComponent<Rigidbody2D>();
 
         transform.eulerAngles = new Vector3(0.0f, 0.0f, Random.Range(-30.0f, 30.0f));
 
@@ -41,6 +61,11 @@ public class Apple : MonoBehaviour
 
         SetColour(0.0f);
         SetScale(0.0f);
+
+        if (wormObject != null)
+        {
+            wormObject.SetActive(Random.value < RANDOM_WORM_PERCENTAGE);
+        }
 
         AppleSpawner.Apples.Add(this);
     }
@@ -67,10 +92,12 @@ public class Apple : MonoBehaviour
     {
         elapsedTime = elapsedTime + (Time.deltaTime / timeTillRipeSeconds);
 
-        if (elapsedTime >= 1.0f && rigidbody2D != null)
+        if (elapsedTime >= 1.0f && Rigidbody2D != null && IsPicked == false)
         {
-            rigidbody2D.isKinematic = false;
-            rigidbody2D.AddTorque(Random.Range(-1.0f, 1.0f), ForceMode2D.Impulse);
+            IsDropped = true;
+
+            Rigidbody2D.isKinematic = false;
+            Rigidbody2D.AddTorque(Random.Range(-1.0f, 1.0f), ForceMode2D.Impulse);
 
             if (SpawnNode != null)
             {
@@ -79,8 +106,11 @@ public class Apple : MonoBehaviour
             enabled = false;
         }
 
-        SetColour(elapsedTime);
-        SetScale(elapsedTime);
+        if (IsPicked == false)
+        {
+            SetColour(elapsedTime);
+            SetScale(elapsedTime);
+        }
     }
 
     private void SetColour(float progress)

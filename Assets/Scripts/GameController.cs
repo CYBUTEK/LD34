@@ -16,7 +16,7 @@ public class GameController : SingletonBehaviour<GameController>
     private Text highScoreText = null;
 
     [SerializeField]
-    private GameObject menuObject = null;
+    private CanvasGroupFader menuCanvasFader = null;
 
     private int highScore;
 
@@ -40,7 +40,7 @@ public class GameController : SingletonBehaviour<GameController>
 
                 if (highScoreText != null)
                 {
-                    highScoreText.text = "HIGH SCORE\n" + highScore;
+                    highScoreText.text = "HIGH SCORE: " + highScore;
                 }
             }
         }
@@ -101,34 +101,39 @@ public class GameController : SingletonBehaviour<GameController>
 
         HighScore = points;
 
-        ShowMenu(true);
+        ShowMenu();
     }
 
-    public void ShowMenu(bool state)
+    public void ShowMenu()
     {
-        if (menuObject != null)
+        if (menuCanvasFader != null)
         {
-            menuObject.SetActive(state);
+            menuCanvasFader.Show();
         }
     }
 
     public void StartGame()
     {
-        Lives = 3;
-        Points = 0;
-
-        if (appleSpawner != null)
+        if (menuCanvasFader != null)
         {
-            appleSpawner.StartSpawner();
-        }
+            menuCanvasFader.Hide(() =>
+            {
+                Lives = 3;
+                Points = 0;
 
-        IsPlaying = true;
-        ShowMenu(false);
+                if (appleSpawner != null)
+                {
+                    appleSpawner.StartSpawner();
+                }
+
+                IsPlaying = true;
+            });
+        }
     }
 
     protected virtual void Start()
     {
-        ShowMenu(true);
+        ShowMenu();
     }
 
     private void DestroyAllApples()

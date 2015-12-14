@@ -14,11 +14,12 @@ public class AppleDropped : MonoBehaviour
 
     protected virtual void OnBecameInvisible()
     {
-        if (apple != null && apple.IsPicked == false && GameController.IsPlaying)
+        if (apple != null && apple.IsPicked == false && apple.IsDropped && GameController.IsPlaying)
         {
             GameController.Instance.Lives -= 1;
             AudioManager.PlayClip("effects", thudClip, Random.Range(0.8f, 1.2f));
-            Destroy(transform.root.gameObject);
         }
+
+        Destroy(transform.root.gameObject);
     }
 }
