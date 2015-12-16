@@ -42,6 +42,9 @@ public class GameController : SingletonBehaviour<GameController>
                 {
                     highScoreText.text = "HIGH SCORE: " + highScore;
                 }
+
+                PlayerPrefs.SetInt("highScore", highScore);
+                PlayerPrefs.Save();
             }
         }
     }
@@ -133,6 +136,7 @@ public class GameController : SingletonBehaviour<GameController>
 
     protected virtual void Start()
     {
+        HighScore = PlayerPrefs.GetInt("highScore", highScore);
         ShowMenu();
     }
 
