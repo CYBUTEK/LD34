@@ -2,9 +2,16 @@
 using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(CanvasGroup))]
 public class CanvasGroupFader : MonoBehaviour
 {
     private const float FADE_DURATION_SECONDS = 0.5f;
+
+    [SerializeField]
+    private bool interactableOnFade = false;
+
+    [SerializeField]
+    private bool blockRaycastsOnFade = true;
 
     private CanvasGroup canvasGroup;
 
@@ -30,6 +37,11 @@ public class CanvasGroupFader : MonoBehaviour
             }
             return gameObject.activeSelf;
         }
+    }
+
+    public void Close()
+    {
+        Hide(() => Destroy(gameObject));
     }
 
     public void Hide(Action callback = null)
@@ -67,7 +79,8 @@ public class CanvasGroupFader : MonoBehaviour
     {
         if (canvasGroup != null)
         {
-            canvasGroup.blocksRaycasts = (IsFaded == false);
+            canvasGroup.interactable = (IsFaded == false || interactableOnFade);
+            canvasGroup.blocksRaycasts = (IsFaded == false || blockRaycastsOnFade);
         }
     }
 

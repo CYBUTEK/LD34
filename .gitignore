@@ -23,3 +23,6 @@
 
 #Unity3D Generated File On Crash Reports
 sysinfo.txt
+
+# update 16/12/2015
+*.keystore
